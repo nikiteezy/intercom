@@ -12,6 +12,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.Configure<DataStoreDatabaseSettings>(builder.Configuration.GetSection("DataStoreDatabase"));
+builder.Services.AddSingleton<DataService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
