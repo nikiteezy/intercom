@@ -348,3 +348,8 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+
+.idea/
+Src/.idea/
+src/Intercom/Intercom/appsettings.json
+src/Intercom/Intercom/appsettings.Development.json
