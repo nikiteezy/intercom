@@ -3,10 +3,12 @@ using MongoDB.Bson.Serialization.Attributes;
 
 namespace Intercom.Data.Models;
 
-public class User
+[BsonIgnoreExtraElements]
+public class Intercom
 {
     [BsonId]
     [BsonRepresentation(BsonType.ObjectId)]
+    [BsonElement("_id")]
     public string? Id { get; set; }
 
     [BsonElement("location_latitude")]

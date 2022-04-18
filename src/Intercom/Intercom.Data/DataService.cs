@@ -1,4 +1,3 @@
-using Intercom.Data.Models;
 using Microsoft.Extensions.Options;
 using MongoDB.Driver;
 
@@ -6,7 +5,7 @@ namespace Intercom.Data;
 
 public class DataService
 {
-    private readonly IMongoCollection<User> _usersCollection;
+    private readonly IMongoCollection<Models.Intercom> _usersCollection;
 
     public DataService(
         IOptions<DataStoreDatabaseSettings> dataStoreDatabaseSettings)
@@ -17,20 +16,20 @@ public class DataService
         var mongoDatabase = mongoClient.GetDatabase(
             dataStoreDatabaseSettings.Value.DatabaseName);
 
-        _usersCollection = mongoDatabase.GetCollection<User>(
-            dataStoreDatabaseSettings.Value.UsersCollectionName);
+        _usersCollection = mongoDatabase.GetCollection<Models.Intercom>(
+            dataStoreDatabaseSettings.Value.IntercomCollectionName);
     }
 
-    public async Task<List<User>> GetAsync() =>
+    public async Task<List<Models.Intercom>> GetAsync() =>
         await _usersCollection.Find(_ => true).ToListAsync();
 
-    public async Task<User?> GetAsync(string id) =>
+    public async Task<Models.Intercom?> GetAsync(string id) =>
         await _usersCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
 
-    public async Task CreateAsync(User newBook) =>
+    public async Task CreateAsync(Models.Intercom newBook) =>
         await _usersCollection.InsertOneAsync(newBook);
 
-    public async Task UpdateAsync(string id, User updatedBook) =>
+    public async Task UpdateAsync(string id, Models.Intercom updatedBook) =>
         await _usersCollection.ReplaceOneAsync(x => x.Id == id, updatedBook);
 
     public async Task RemoveAsync(string id) =>
